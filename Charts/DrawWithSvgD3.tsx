@@ -6,6 +6,7 @@ import * as d3 from "d3";
 
 const GRAPH_MARGIN = 20;
 const GRAPH_BAR_WIDTH = 30;
+const GRAPH_BAR_HEIGHT = 30;
 const colors = {
   axis: "#E4E4E4",
   bars: "#BC2123",
@@ -31,9 +32,16 @@ const ranks = [
   { label: "6/7", rating: 2 },
 ];
 
+const sales = [
+  { label: "オリジナルデザインパーカー", numberView: 90, numberAccess: 3456 },
+  { label: "表情くるくるマスキングテープ", numberView: 50, numberAccess: 2899 },
+  { label: "らぼくまスマホケース", numberView: 20, numberAccess: 3456 },
+];
+
 const BarChartScreen = () => {
   // Dimensions
   const SVGHeight = 300;
+  const SVGCoulmnHeight = 200;
   const SVGWidth = Dimensions.get("window").width - 60;
   const graphHeight = SVGHeight - 2 * GRAPH_MARGIN;
   const graphWidth = SVGWidth;
@@ -71,7 +79,7 @@ const BarChartScreen = () => {
 
   const ratio = SVGHeight / 10;
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={{ width: 40, height: 40 }} />
       <Text>BAR CHART</Text>
       <View style={styles.barChart}>
@@ -173,6 +181,112 @@ const BarChartScreen = () => {
         </Svg.Svg>
       </View>
       <View style={{ width: 40, height: 40 }} />
+      <Text>COLUMN CHART</Text>
+      <View style={{}}>
+        <View
+          style={{
+            flexDirection: "row",
+            backgroundColor: "#515C6F",
+            justifyContent: "space-around",
+            alignItems: "center",
+            height: 50,
+            borderTopLeftRadius: 6,
+            borderTopRightRadius: 6,
+          }}
+        >
+          <Text
+            style={{
+              color: "#fff",
+              fontSize: 14,
+              fontWeight: "bold",
+              width: "25%",
+              textAlign: "center",
+            }}
+          >
+            商品名
+          </Text>
+          <Text
+            style={{
+              color: "#fff",
+              fontSize: 14,
+              fontWeight: "bold",
+              width: "25%",
+              textAlign: "center",
+            }}
+          >
+            ページビュー
+          </Text>
+          <Text
+            style={{
+              color: "#fff",
+              fontSize: 14,
+              fontWeight: "bold",
+              width: "25%",
+              textAlign: "center",
+            }}
+          >
+            アクセス数
+          </Text>
+        </View>
+        <View style={{ width: 10, height: 20 }}></View>
+        <View>
+          {sales.map((item) => {
+            return (
+              <View
+                style={{
+                  width: "100%",
+                  // backgroundColor: "yellow",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  paddingHorizontal: 10
+                }}
+                key={`${item.label} values`}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    paddingVertical: 10,
+                  }}
+                >
+                  <Text style={{ width: "25%", fontSize: 10 }} numberOfLines={2}>
+                    {item.label}
+                  </Text>
+                  <View
+                    style={{
+                      width: "50%",
+                      height: 30,
+                      paddingHorizontal: 15,
+                      // backgroundColor: "purple",
+                    }}
+                  >
+                    <View
+                      style={{
+                        backgroundColor: "red",
+                        width: `${item.numberView}%`,
+                        height: "100%",
+                        borderTopRightRadius: 6,
+                        borderBottomRightRadius: 6,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Text
+                        style={{ color: "white", fontWeight: "bold", fontSize: 10, }}
+                      >{`${item.numberView}%`}</Text>
+                    </View>
+                  </View>
+                  <Text style={{ width: "25%", textAlign: "center", fontSize: 10 }}>
+                    {item.numberAccess}
+                  </Text>
+                </View>
+              </View>
+            );
+          })}
+        </View>
+      </View>
+      <View style={{ width: 40, height: 40 }} />
       <Text>LINE CHART</Text>
       <View style={styles.barChart}>
         <Svg.Svg width={SVGWidth} height={SVGHeight}>
@@ -268,7 +382,7 @@ const BarChartScreen = () => {
           </Svg.G>
         </Svg.Svg>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
